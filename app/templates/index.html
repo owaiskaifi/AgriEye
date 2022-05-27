@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1.0">
+    <title>Wheat Rust Disease Detection </title>
+</head>
+
+<body style="background-color: #212121; margin: 0px; min-width:640px; height: 100%; padding: 0;" >
+    
+    <header>
+        <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+        <h1 align="center"><a style="font-family: 'Indie Flower'; font-size: 32px; color:white; inline-block; text-decoration: none;" target="_blank" rel="noopener noreferrer" href="https://cat-bounce.com">Wheat Rust Disease Detection </a></h1>
+    </header>
+        
+    <div style="width:100%; height: 30px;" align="center">
+        <form name="target" action="{{ url_for('index') }}" method='POST' style="display:inline-block;" >
+            <label for="target" style="font-family: 'Courier'; font-size : 14px; font-weight:bold; color: white;">Model Version:</label>
+            <select id="target" name="target" type="text" style="font-family: 'Courier'; font-size : 14px; border: none; width:130px; background-color: lightgrey;" required>
+                <option value="" selected disabled> -- SELECT -- </option>
+                
+                {% for ver in candidates %}
+
+                <option value="{{ver}}" {% if ver == target %} selected {% endif %}>{{ver}}</option>
+
+                {% endfor %}
+
+            </select>
+
+            <button type="reset" name="reset_button"
+                style="font-family: 'Courier'; font-size : 14px; color: white; background-color: darkgrey; border-radius: 6px; border: none;">RESET</button>  
+            <button type="submit" name="submit_button"
+                style="font-family: 'Courier'; font-size : 14px; color: white; background-color: royalblue; border-radius: 6px; border: none;">SERVE</button>
+        </form>
+        <div style="width:10px; height:auto; display:inline-block;"></div>
+        <form name="shutdown" action="{{ url_for('shutdown') }}" method="POST" style="display:inline-block;">
+            <button type="button" name="shutdown_button" onClick="confirmMessage(this.form);" style="font-family: 'Courier'; font-size : 14px; color: #212121; background-color: #fc6408; border-radius: 6px; border: none;"><strong>SHUTDOWN</strong></button> 
+        </form>
+    </div>
+
+    <div align="center">
+        {% if target is not none %}
+
+        <img style="vertical-align: middle" src="{{ url_for('videostream', target=target) }}">
+
+        {% else %}
+
+        <p style="font-family: 'Arial'; font-size: 18px; color: white; text-decoration: underline">Welcome! <br>Serve your model to get started.</p>
+
+        {% endif %}
+    </div>
+
+    <script type="text/javascript">
+        function confirmMessage(form) {
+            if (confirm("Are you sure you want to shutdown the server?")) {
+                form.submit();
+            }
+        }
+    </script>
+</body>
+
+<div align="center">
+<footer style="background: #282828; width: 100%; height: 50px; position: absolute; bottom: 0; left: 0;" align="center">
+    <div align="center">
+        <p style="font-family: 'Georgia'; font-size : 14px; color:lightgrey; display: inline;">   </p>
+        <p style="display: inline;"><a style="font-family: 'Roboto'; font-weight:bold; color:#fc6408; display: inline; font-size: 14px; text-decoration: none;"
+                target="_blank" rel="noopener noreferrer" href="https://www.tensorflow.org/lite">PROJECT</a></p>
+        <p style="font-family: 'Georgia'; font-size : 14px; color:lightgrey; display: inline;">  </p>
+        <p style="display: inline;"><a style="font-family: 'Droid Serif'; font-weight:bold; color:#396179; display: inline; font-size : 14px; text-decoration: none;"
+                target="_blank" rel="noopener noreferrer" href="https://palletsprojects.com/p/flask">BY</a></p>        
+        <p style="font-family: 'Georgia'; font-size : 14px; color:lightgrey; display: inline;">  </p>
+        <a style="text-decoration: none;" target="_blank" rel="noopener noreferrer" href="https://www.raspberrypi.org"> </a>
+    </div>
+    <div align="center">
+    <small style="font-family: 'Arial'; font-style: oblique; color: #2F4F4F;" align="center">|Owais||Zunaira| </small>
+    </div>
+</footer>
+</div>
+</html>

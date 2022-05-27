@@ -1,0 +1,7 @@
+Flask 
+numpy 
+picamera 
+opencv-python 
+opencv-contrib-python 
+tensorflow 
+tflite
